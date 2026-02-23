@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatBot Widget — Demo</title>
+
+  <!-- ⚠️  Tailwind loaded intentionally to test CSS isolation -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Host page styles – should NOT bleed into widget */
+    * { box-sizing: border-box; }
+    body {
+      font-family: Georgia, serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .demo-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 48px 40px;
+      max-width: 620px;
+      width: 100%;
+      text-align: center;
+      color: white;
+    }
+    .demo-card h1 { font-size: 2.2rem; margin-bottom: 12px; font-weight: 700; }
+    .demo-card p  { font-size: 1.05rem; opacity: 0.85; line-height: 1.7; margin-bottom: 24px; }
+    .demo-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-family: monospace;
+    }
+    .demo-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+      text-align: left;
+    }
+    .demo-feature {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      font-family: system-ui;
+    }
+    .demo-feature strong { display: block; margin-bottom: 4px; }
+    @media (max-width: 480px) {
+      .demo-features { grid-template-columns: 1fr; }
+      .demo-card { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-card">
+    <span class="demo-badge">✦ SaaS Widget Demo</span>
+    <h1>ChatBot Widget</h1>
+    <p>
+      A production-quality, embeddable AI chat widget built with React + Vite,
+      isolated inside a Shadow DOM so it works on <em>any</em> website — even
+      one loading Tailwind, Bootstrap, or any conflicting CSS.
+    </p>
+    <p style="font-size:0.9rem; opacity:0.7;">
+      👇 Click the launcher button in the bottom-right corner to open the chat.
+    </p>
+
+    <div class="demo-features">
+      <div class="demo-feature"><strong>🧩 Shadow DOM</strong>Full CSS &amp; JS isolation from host page</div>
+      <div class="demo-feature"><strong>🤖 Mock AI Engine</strong>Intent matching with 1–2s typing delay</div>
+      <div class="demo-feature"><strong>📱 Responsive</strong>Full-screen on mobile, panel on desktop</div>
+      <div class="demo-feature"><strong>⚡ Single Script</strong>One &lt;script&gt; tag installs the widget</div>
+      <div class="demo-feature"><strong>🎨 Themeable</strong>Custom colors, name, position, welcome msg</div>
+      <div class="demo-feature"><strong>🔮 Backend Ready</strong>Clean service layer for API swap-in</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       Widget embed — this is the only integration needed
+  ═══════════════════════════════════════════════════════ -->
+  <script type="module" src="/src/widget-entry.tsx"></script>
+  <script>
+    // Wait for the module to set up window.ChatBot
+    window.addEventListener('load', () => {
+      if (window.ChatBot) {
+        ChatBot.init({
+          apiKey:          'demo_key',
+          botName:         'Support Assistant',
+          themeColor:      '#4F46E5',
+          position:        'right',
+          welcomeMessage:  'Hi 👋 How can we help you today?',
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

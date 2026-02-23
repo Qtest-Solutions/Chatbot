@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite --open /demo.html",
     "build": "vite build",
+    "build:watch": "vite build --watch",
+    "serve-widget": "npx serve dist -p 4000 --cors",
     "lint": "eslint .",
     "preview": "vite preview"
   },

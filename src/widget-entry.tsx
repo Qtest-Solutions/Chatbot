@@ -25,7 +25,7 @@ function App({ config }: { config: ChatConfig }) {
 
 let mounted = false;
 
-export function mountWidget(config: ChatConfig) {
+function mountWidget(config: ChatConfig) {
     if (mounted) return;
     mounted = true;
 
